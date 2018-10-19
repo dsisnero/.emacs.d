@@ -38,6 +38,7 @@
     (use-package helm-bookmark
       :bind (("C-x M-b" . helm-bookmarks)))
     (use-package helm-projectile
+      :ensure t
       :bind (("C-x f" . helm-projectile)
              ("C-c p f" . helm-projectile-find-file)
              ("C-c p s" . helm-projectile-switch-project)))
@@ -62,16 +63,10 @@
 
     (add-hook 'helm-minibuffer-set-up-hook 'helm-hide-minibuffer-maybe)
 
-    ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
-    ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
-    ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
-    (global-set-key (kbd "C-c h") 'helm-command-prefix)
-    (global-unset-key (kbd "C-x c"))
 
-    (setq helm-idle-delay 0.01
-          helm-exit-idle-delay 0.1
-          helm-input-idle-delay 0.01
-          helm-buffers-fuzzy-matching t
+    (setq projectile-indexing-method 'alien ;; enable indexing using external tools like git ls-files
+          ;; enable caching
+          projectile-enable-caching t
           ;; truncate long lines in helm completion
           helm-truncate-lines t
           ;; may be overridden if 'ggrep' is in path (see below)
@@ -85,6 +80,8 @@
           helm-idle-delay 0.01
           ;; be idle for this many seconds, before updating candidate buffer
           helm-input-idle-delay 0.01
+          ;;
+          helm-exit-idle-delay 0.1
           ;; open helm buffer in another window
           helm-split-window-default-side 'other
           ;; open helm buffer inside current window, don't occupy whole other window

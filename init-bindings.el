@@ -1,6 +1,14 @@
 (global-set-key (kbd "C-<tab>") 'company-dabbrev)
 (global-set-key (kbd "M-<tab>") 'company-complete)
 (global-set-key (kbd "C-c C-y") 'company-yasnippet)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+(global-set-key (kbd "M-x") 'helm-M-x)
+;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
+;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
+;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
+(global-set-key (kbd "C-c h") 'helm-command-prefix)
+(global-unset-key (kbd "C-x c"))
+
 
 (global-set-key (kbd "C-M-a") 'sp-beginning-of-sexp)
 (global-set-key (kbd "C-M-e") 'sp-end-of-sexp)
@@ -60,7 +68,9 @@
            (";1" . zygospore-toggle-delete-other-windows)
            ("xf" . projectile-find-file)
            ("xd" . projectile-find-dir)
+           ("ps" . projectile-switch-project-action)
            (";l" . helm-bookmarks)
+           ("m;" . magit-status)
            (";m" . magit-status)
            ("xb" . ido-switch-buffer)
            (";1" . zygospore-toggle-delete-other-windows)

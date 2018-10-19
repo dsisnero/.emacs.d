@@ -3,12 +3,14 @@
 (req-package projectile
   :ensure t
   :commands (projectile-find-file
-             projectile-find-dir)
+             projectile-find-dir
+             projectile-switch-project)
   :bind (("C-x f" . projectile-find-file)
          ("C-x d" . projectile-find-dir))
   :config
   (projectile-global-mode)
-  (setq projectile-completion-system 'ido))
+  (setq projectile-completion-system 'helm
+        projectile-switch-project-action 'helm-projectile))
 
 (req-package visual-regexp-steroids
   :ensure t)
