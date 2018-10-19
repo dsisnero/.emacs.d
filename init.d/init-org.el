@@ -30,6 +30,7 @@
    (lambda ()
      (async-shell-command "emacsclient -n ~/Work")
      (shell-command "play ~/.emacs.d/pomodoro-start.mp3")))
-  :bind (("C-c p" . org-pomodoro)))
+
+  )
 
 (provide 'init-org)
