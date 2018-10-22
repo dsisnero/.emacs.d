@@ -35,6 +35,9 @@
   :init
   (add-hook 'ruby-mode-hook 'inf-ruby-minor-mode))
 
+(use-package rspec-mode
+  :ensure t)
+
 (use-package smartparens
   :ensure t
   :diminish (smartparens-mode .  "()")
@@ -50,15 +53,25 @@
 
 (use-package robe
   :ensure t
-  :bind ("C-M-." . robe-jump)
-
-  :init
-  (add-hook 'ruby-mode-hook 'robe-mode)
-
+  ;;:bind ("C-M-." . robe-jump)
   :config
-  (defadvice inf-ruby-console-auto
-    (before activate-rvm-for-robe activate)
-    (rvm-activate-corresponding-ruby)))
+  (add-hook 'ruby-mode-hook
+            '(lambda ()
+               (robe-mode)
+               (rope-ac-setup)))
+
+  (setq inf-ruby-default-implementation "pry"
+        inf-ruby-eval-binding "Pry.toplevel_binding")
+  (use-package ac-robe)
+  (use-package inf-ruby :ensure t)
+  (use-package ac-inf-ruby
+    :ensure t
+    :config
+    (eval-after-load 'auto-complete
+      '(add-to-list 'ac-modes 'inf-ruby-mode))
+    (add-hook 'inf-ruby-mode-hook 'ac-inf-ruby-enable)
+    )
+  )
 
 ;; (use-package company
 ;;   :no-require t
