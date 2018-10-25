@@ -2,13 +2,15 @@
 
 (req-package helm
   :ensure t
-  :commands (helm-bookmarks)
+  :commands (helm-bookmarks helm-find-files)
+  :bind (:map helm-command-map
+              ("C-c h" . helm-execute-persistent-action))
   :bind (("C-x C-b" . helm-buffers-list)
          ("C-x C-f" . helm-find-files)
          ("M-y" . helm-show-kill-ring)
          ("M-x" . helm-M-x)
+         ("C-h a" . helm-apropos)
          ("C-x b" . helm-mini)
-         ("C-c y" . helm-show-kill-ring)
          ("C-x C-r" . helm-recentf)
          ("C-x r l" . helm-bookmarks))
   :init (progn
@@ -49,6 +51,7 @@
                           'helm-eshell-history))))
 
     (use-package helm-ag
+      :ensure t
       :bind ("C-M-s" . helm-ag-this-file))
 
     ;; Via: http://www.reddit.com/r/emacs/comments/3asbyn/new_and_very_useful_helm_feature_enter_search/
@@ -64,11 +67,7 @@
     (add-hook 'helm-minibuffer-set-up-hook 'helm-hide-minibuffer-maybe)
 
 
-    (setq projectile-indexing-method 'alien ;; enable indexing using external tools like git ls-files
-          ;; enable caching
-          projectile-enable-caching t
-          ;; truncate long lines in helm completion
-          helm-truncate-lines t
+    (setq helm-truncate-lines t ;; truncate long lines in helm completion
           ;; may be overridden if 'ggrep' is in path (see below)
           helm-grep-default-command
           "grep -a -d skip %e -n%cH -e %p %f"
@@ -97,9 +96,12 @@
           helm-display-header-line nil
           ;; fuzzy matching
           helm-buffers-fuzzy-matching t
+          helm-recentf-fuzzy-match t
           helm-semantic-fuzzy-match t
           helm-imenu-fuzzy-match t
           helm-completion-in-region-fuzzy-match t
+          helm-M-x-fuzzy-match t
+          helm-apropos-fuzzy-match t
           ;; Here are the things helm-mini shows, I add `helm-source-bookmarks'
           ;; here to the regular default list
           helm-mini-default-sources '(helm-source-buffers-list
@@ -248,12 +250,18 @@
       (interactive)
       (helm-other-buffer '(helm-httpstatus-source) "*helm httpstatus*"))
 
+
+
     (defun helm-clj-http ()
       (interactive)
       (helm-other-buffer '(helm-clj-http-source) "*helm clj-http flags*"))
 
     (global-set-key (kbd "C-c M-C-h") 'helm-httpstatus)
     (global-set-key (kbd "C-c M-h") 'helm-clj-http)
+
+    (use-package helm-rg
+      :ensure t
+      )
 
     (use-package helm-swoop
       :bind (("M-i" . helm-swoop)
@@ -308,6 +316,8 @@
 (req-package helm-gitignore
   :ensure t
   :commands helm-gitignore)
+
+
 
 (req-package helm-company
   :ensure t
