@@ -2,18 +2,21 @@
 
 (req-package company
   :ensure t
+  :init (global-company-mode)
   :require yasnippet
   :config
-  (global-company-mode 1)
-  (setq company-idle-delay 0.1)
-  (setq company-show-numbers t)
-  (setq company-minimum-prefix-length 2)
-  (setq company-dabbrev-downcase nil)
-  (setq company-dabbrev-other-buffers t)
-  (setq company-auto-complete nil)
-  (setq company-dabbrev-code-other-buffers 'all)
-  (setq company-dabbrev-code-everywhere t)
-  (setq company-dabbrev-code-ignore-case t))
+  (setq company-minimum-prefix-length 2
+        company-selection-wrap-around t
+        company-tooltip-align-annotations t
+        company-tooltip-flip-when-above t)
+
+  )
+
+(use-package helm-company
+  :defer t
+  :init
+  (with-eval-after-load 'company
+    (define-key company-active-map (kbd "C-/") 'helm-company)))
 
 (req-package company-quickhelp
   :ensure t
