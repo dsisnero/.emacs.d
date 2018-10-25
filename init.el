@@ -1,4 +1,3 @@
-
 (setq debug-on-error t)
 (setq debug-on-quit t)
 
@@ -19,11 +18,8 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 
-
-(tool-bar-mode 1)
-                                        ;(package-initialize)
-
-(require 'package)
+;; save backup files
+(setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
 
 ;; bootstrap utils
 
@@ -42,5 +38,4 @@
 (setq inhibit-startup-message t)
 
 ;; load extensions
-
 (add-hook 'after-init-hook (lambda () (load "~/.emacs.d/init-real.el")))
