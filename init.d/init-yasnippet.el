@@ -2,7 +2,24 @@
 
 (req-package yasnippet
   :ensure t
-  :config (progn (yas-global-mode 1)
-                 (define-key yas-minor-mode-map (kbd "C-M-y") 'yas-expand)))
+  :diminish yas-minor-mode
+  :config
+  (progn
+    (setq des/yas-snippets-dir (let ((dir (concat user-emacs-directory
+                                                  "snippets/")))
+                                 (make-directory dir :parents)
+                                 dir))
+    (add-to-list 'yas-snippet-dirs des/yas-snippets-dir)
+    (yas-global-mode)
+    (yas-reload-all)
+    )
+  )
+
+
+
+
+(use-package yasnippet-snippets
+  :ensure t
+  :after yasnippet)
 
 (provide 'init-yasnippet)

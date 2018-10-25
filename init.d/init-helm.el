@@ -275,6 +275,10 @@
               helm-swoop-speed-or-color nil)))
     ))
 
+(use-package helm-c-yasnippet
+  :ensure t
+  :bind ("C-c y" . helm-yas-complete))
+
 (req-package helm-flx
   :ensure t
   :config (helm-flx-mode +1)
