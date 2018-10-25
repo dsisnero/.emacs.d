@@ -25,7 +25,7 @@
 
 (req-package menu-bar
   :config
-  (menu-bar-mode -1))
+  (menu-bar-mode 1))
 
 ;; main line
 
@@ -93,6 +93,17 @@
   :defer t
   :init
   (add-theme 'gruvbox))
+
+(use-package which-key
+  :ensure t
+  :config
+  (which-key-mode t))
+
+(use-package zenburn-theme
+  :ensure t
+  :defer t
+  :init
+  (add-theme 'zenburn))
 
 (req-package darktooth-theme
   :ensure t
@@ -207,5 +218,15 @@
   :ensure t
   :config
   (dash-enable-font-lock))
+
+(use-package ace-window
+  :ensure t
+  :init
+  (progn
+    (global-set-key [remap other-window] 'ace-window)
+    (custom-set-faces
+     '(aw-leading-char-face
+       ((t (:inherit ace-jump-face-foreground :height 3.0)))))
+    ))
 
 (provide 'init-look-and-feel)
