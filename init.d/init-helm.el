@@ -317,6 +317,13 @@
   :ensure t
   :commands helm-gitignore)
 
+(req-package helm-flyspell
+  :ensure t
+  :after (helm flyspell)
+  :commands (helm-flyspell-correct flyspell-after-incorrect-word-string)
+  :config
+  (define-key flyspell-mode-map (kbd "C-;") 'helm-flyspell-correct))
+
 
 
 (req-package helm-company
