@@ -1,17 +1,18 @@
-
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
 (package-initialize)
 
+(setq load-prefer-newer t)
+
+;; help with errors
 (setq debug-on-error t)
 (setq debug-on-quit t)
 
 (global-auto-revert-mode 1)
 ;; be quiet about reverting files
 (setq auto-revert-verbose nil)
-
 
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
