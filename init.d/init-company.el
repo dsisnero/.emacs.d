@@ -5,10 +5,14 @@
   :init (global-company-mode)
   :require yasnippet
   :config
-  (setq company-minimum-prefix-length 2
+  (setq company-minimum-prefix-length 1
+        company-show-numbers t
+        company-tooltip-limit 20
         company-selection-wrap-around t
         company-tooltip-align-annotations t
         company-tooltip-flip-when-above t)
+  ;; default backends
+  (setq company-backends '((company-files)))
 
   )
 
@@ -20,7 +24,7 @@
 
 (req-package company-quickhelp
   :ensure t
-  :require company
+  :after company
   :config (company-quickhelp-mode 1))
 
 (provide 'init-company)

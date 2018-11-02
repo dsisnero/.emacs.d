@@ -1,19 +1,27 @@
 (require 'req-package)
 
-(req-package flycheck
-  :ensure t
-  :config (progn (global-flycheck-mode 1)
-                 (set-face-attribute 'flycheck-warning nil
-                                     :inherit 'warning
-                                     :underline nil)
-                 (set-face-attribute 'flycheck-error nil
-                                     :inherit 'error
-                                     :underline nil)))
+(use-package flycheck
+  :defer t
+  :config
+  (progn
+    (defconst des/flycheck-mode-hooks '(python-mode-hook
+                                         sh-mode-hook
+                                         nim-mode-hook
+                                         ruby-mode-hook)
+      "List of hooks of major modes in which flycheck mode should be enabled.")
 
-(req-package flycheck-pos-tip
-  :ensure t
-  :commands flycheck-pos-tip-error-messages
-  :require flycheck
-  :init (setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages))
+    (defun des/turn-on-flycheck-mode ()
+      "Turn on flycheck-mode for the modes in `des/flycheck-mode-hooks'."
+      (interactive)
+      (dolist (hook des/flycheck-mode-hooks)
+        (add-hook hook #'flycheck-mode)))
+
+    (defun des/turn-off-flycheck-mode ()
+      "Turn off flycheck-mode for the modes in `des/flycheck-mode-hooks'."
+      (interactive)
+      (dolist (hook des/flycheck-mode-hooks)
+        (remove-hook hook #'flycheck-mode)))
+
+    (des/turn-on-flycheck-mode)))
 
 (provide 'init-flycheck)

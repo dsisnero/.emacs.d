@@ -58,6 +58,9 @@
   :ensure t
   :config (key-chord-mode 1))
 
+(use-package use-package-ensure-system-package
+  :ensure t)
+
 (use-package req-package
   :ensure t
   :config (req-package--log-set-level 'debug))

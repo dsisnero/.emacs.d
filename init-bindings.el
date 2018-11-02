@@ -1,3 +1,6 @@
+(require 'bind-key)
+
+
 (global-set-key (kbd "C-<tab>") 'company-dabbrev)
 (global-set-key (kbd "M-<tab>") 'company-complete)
 (global-set-key (kbd "C-c C-y") 'company-yasnippet)
