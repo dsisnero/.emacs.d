@@ -1,25 +1,5 @@
 (require 'req-package)
 
-(req-package projectile
-  :ensure t
-  :commands (projectile-find-file
-             projectile-find-dir
-             projectile-switch-project)
-  :bind (("C-x f" . projectile-find-file)
-         ("C-x d" . projectile-find-dir))
-  :bind-keymap
-  ("C-c p" . projectile-command-map)
-  :config
-  (projectile-global-mode)
-  (setq projectile-completion-system 'helm
-        ;; enable indexing using external tools like git ls-files
-        projectile-indexing-method 'native
-        projectile-generic-command "fd . -t f -0"
-        projectile-git-command "fd . -t f -0"
-        projectile-svn-command "fd . -t f -0"
-        projectile-switch-project-action 'helm-projectile
-        projectile-enable-caching t))
-
 (req-package visual-regexp-steroids
   :ensure t)
 
