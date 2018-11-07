@@ -4,7 +4,11 @@
   :ensure t
   :bind (("C-x v t" . git-timemachine)))
 
+(use-package ssh-agency
+  :ensure t)
+
 (setenv "GIT_ASKPASS" "git-gui--askpass")
+(setenv "SSH-ASKPASS" "git-gui--askpass")
 
 (req-package magit
   :ensure t
