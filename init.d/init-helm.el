@@ -75,7 +75,9 @@
   (progn
     (projectile-global-mode)
     (setq projectile-completion-system 'helm
-          projectile-indexing-method 'native)))
+          projectile-indexing-method 'turbo-alien
+          projectile-generic-command "fd -type f --print0 ."
+          projectile-git-command "fd -type f --print0 .")))
 
 (use-package helm-projectile
   :ensure t
@@ -111,8 +113,18 @@
   :config (global-kbd-or 'helm-flyspell-correct "C-;"))
 
 (use-package helm-ag
+  :after (helm ag)
   :ensure t
   :bind ("C-M-s" . helm-ag-this-file))
+
+(use-package ag
+  :ensure t)
+
+(use-package ripgrep
+  :ensure t)
+
+(use-package projectile-ripgrep
+  :ensure t)
 
 (use-package helm-themes
   :ensure t)
