@@ -5,6 +5,8 @@
 (setq-default cursor-type 'box)
 (blink-cursor-mode 1)
 
+(global-display-line-numbers-mode 1)
+
 ;; use timeclock
 
 (req-package timeclock
@@ -228,5 +230,44 @@
      '(aw-leading-char-face
        ((t (:inherit ace-jump-face-foreground :height 3.0)))))
     ))
+
+;; sidebar and dired in one
+(use-package neotree
+;;  :commands (neotree-dir neotree-show neotree-hide neotree-toggle neotree-find neotree-projectile-action)
+  :ensure t
+  :bind
+  ("<f8>" . neotree-toggle)
+  :config
+   ;; (defun neotree-project-dir ()
+   ;;  "Open NeoTree using the git root."
+   ;;  (interactive)
+   ;;  (let ((project-dir (projectile-project-root))
+   ;;        (file-name (buffer-file-name)))
+   ;;    (neotree-toggle)
+   ;;    (if project-dir
+   ;;        (if (neo-global--window-exists-p)
+   ;;            (progn
+   ;;              (neotree-dir project-dir)
+   ;;             (neotree-find file-name)))
+
+  ;; needs package all-the-icons
+;;  (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+
+  ;; Disable line-numbers minor mode for neotree
+  (add-hook 'neo-after-create-hook
+            (lambda (&rest _) (display-line-numbers-mode -1)))
+
+  ;; Every time when the neotree window is opened, let it find current
+  ;; file and jump to node.
+  (setq neo-smart-open t)
+
+  ;; autorefresh
+  ;; (setq neo-autorefresh nil)
+
+  ;; track ‘projectile-switch-project’ (C-c p p),
+  (setq projectile-switch-project-action 'neotree-projectile-action))
+
+(use-package all-the-icons
+  :ensure t)
 
 (provide 'init-look-and-feel)
