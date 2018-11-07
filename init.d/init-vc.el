@@ -16,6 +16,19 @@
   :commands (magit-status)
   )
 
+(use-package epa-file
+  :config
+  (epa-file-enable))
+
+;; (setq epg-gpg-home-directory "~/.gnupg")
+;; (setq epg-gpgconf-program "e:/msys64/usr/bin/gpgconf.exe")
+;; (setq epg-gpg-program "e:/msys64/usr/bin/gpg.")
+
+(use-package magithub
+  :after magit
+  :ensure t
+  :config (magithub-feature-autoinject t))
+
 (req-package magit-gitflow
   :ensure t
   :require magit
