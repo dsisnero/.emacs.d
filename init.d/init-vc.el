@@ -8,8 +8,7 @@
   :ensure t
   :bind ("C-x g" . magit-status)
   :commands (magit-status)
-  :init
-  (setq magit-last-seen-setup-instructions "1.4.0"))
+  )
 
 (req-package magit-gitflow
   :ensure t
