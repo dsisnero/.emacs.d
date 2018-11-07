@@ -4,6 +4,8 @@
   :ensure t
   :bind (("C-x v t" . git-timemachine)))
 
+(setenv "GIT_ASKPASS" "git-gui--askpass")
+
 (req-package magit
   :ensure t
   :bind ("C-x g" . magit-status)
