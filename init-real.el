@@ -49,6 +49,7 @@
 
 ;;auto-compile
 (use-package auto-compile
+  :ensure t
   :demand t
   :config
   (auto-compile-on-load-mode)
