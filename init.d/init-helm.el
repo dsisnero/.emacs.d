@@ -3,6 +3,7 @@
 (use-package helm
   :ensure t
   :diminish helm-mode
+  :bind-keymap ("C-c h" . helm-command-prefix)
   :bind
   (("M-x" . helm-M-x)
    ("M-y" . helm-show-kill-ring)
@@ -17,8 +18,6 @@
    ("C-<backspace>" . helm-find-files-up-one-level)
 
    )
-
-
   :config
   (progn
     (setq helm-candidate-number-limit 100)
@@ -61,8 +60,6 @@
 
   )
 
-
-
 (use-package projectile
   :commands (projectile-find-file
              projectile-switch-open-project
@@ -75,9 +72,9 @@
   (progn
     (projectile-global-mode)
     (setq projectile-completion-system 'helm
-          projectile-indexing-method 'turbo-alien
+          projectile-indexing-method 'alien
           projectile-generic-command "fd -type f --print0 ."
-          projectile-git-command "fd -type f --print0 .")))
+          projectile-git-command "fd -0 .")))
 
 (use-package helm-projectile
   :ensure t
@@ -100,17 +97,14 @@
   )
 
 (use-package helm-descbinds
-  :after (helm)
   :ensure t
-  :commands helm-descbinds
-  :config
-  (global-kbd-or 'helm-descbinds "C-h-b")
-  )
+  :bind ("C-h b" . helm-descbinds))
 
 (use-package helm-flyspell
-  :after (helm)
-  :commands helm-flyspell-correct
-  :config (global-kbd-or 'helm-flyspell-correct "C-;"))
+  :ensure t
+  :config
+  (bind-key "C-;" 'helm-flyspell-correct flyspell-mode-map)
+  )
 
 (use-package helm-ag
   :after (helm ag)
